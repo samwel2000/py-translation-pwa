@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load pwa %}
+<head>
+    {% load i18n %}
+    {% load path_tags %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% progressive_web_app_meta %}
+    <title>Document</title>
+</head>
+<body>
+    <a href="{% url 'item' %}">Link</a>
+
+    {{data}}
+    <h1>{% trans 'Hello world' %}</h1>
+
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+
+        {% for lang in languages %}
+          <li>
+          <a class="dropdown-item" href="{% get_path request.get_full_path lang.code %}">
+              {{ lang.name_local }}
+          </a>
+          </li>
+        {% endfor %}
+      </ul>
+</body>
+</html>
